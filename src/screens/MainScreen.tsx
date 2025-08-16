@@ -8,7 +8,7 @@ import colors from '../theme/colors';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/RootNavigator';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-
+import Icon from 'react-native-vector-icons/MaterialIcons';
 type Props = NativeStackScreenProps<RootStackParamList, 'Main'>;
 
 export default function MainScreen({ navigation }: Props) {
@@ -30,7 +30,7 @@ export default function MainScreen({ navigation }: Props) {
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>TO DO List</Text>
-        <Text style={styles.counts}>{completed}/{total} done</Text>
+        <Text style={styles.counts}>{completed}/{total}</Text>
       </View>
 
       {/* Filter & Sort controls (requirements #8, #9). :contentReference[oaicite:5]{index=5} */}
@@ -66,7 +66,7 @@ export default function MainScreen({ navigation }: Props) {
 
       {/* FAB: go to Add screen */}
       <Pressable onPress={() => navigation.navigate('AddTodo')} style={styles.fab}>
-        <Text style={{ color: '#000', fontWeight: '700' }}>＋</Text>
+        <Icon name="add" size={34} color={'#000'} />
       </Pressable>
     </View>
   );
@@ -76,11 +76,11 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.bg },
   header: { padding: 16, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
   title: { color: colors.text, fontSize: 24, fontWeight: '700' },
-  counts: { color: colors.dim },
+  counts: { color: colors.dim, fontWeight:'bold' },
   controls: { flexDirection: 'row', paddingHorizontal: 12, marginBottom: 8, flexWrap: 'wrap' },
   chip: { borderWidth: 1, borderColor: colors.border, paddingHorizontal: 10, paddingVertical: 6, borderRadius: 16, marginRight: 8, marginBottom: 8 },
   chipActive: { backgroundColor: colors.text },
   chipText: { color: colors.text, textTransform: 'capitalize' },
   chipTextActive: { color: '#000' },
-  fab: { position: 'absolute', right: 18, bottom: 28, width: 56, height: 56, borderRadius: 28, backgroundColor: colors.accent, alignItems: 'center', justifyContent: 'center' },
+  fab: { position: 'absolute', right: 18, bottom: 28, width: 46, height: 46, borderRadius: 28, backgroundColor: colors.accent, alignItems: 'center', justifyContent: 'center' },
 });

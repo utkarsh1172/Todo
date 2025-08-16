@@ -88,12 +88,13 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 12,
+    padding: 14,
     backgroundColor: colors.card,
     marginBottom: 8,
     borderRadius: 12,
     borderColor: colors.border,
     borderWidth: 1,
+    margin:10
   },
   checkbox: { marginRight: 12 },
   title: { color: colors.text, fontSize: 16, flex: 1 },

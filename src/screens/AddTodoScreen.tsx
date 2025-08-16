@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { View, TextInput, Pressable, Text, StyleSheet } from 'react-native';
 import { addTodo } from '../features/todos/todosSlice';
 import colors from '../theme/colors';
@@ -10,7 +10,15 @@ type Props = NativeStackScreenProps<RootStackParamList, 'AddTodo'>;
 
 export default function AddTodoScreen({ navigation }: Props) {
   const [title, setTitle] = useState('');
+  const inputRef = useRef<TextInput>(null);
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      inputRef.current?.focus();
+    }, 100); // slight delay for smoother nav transition
+    return () => clearTimeout(timer);
+  }, []);
 
   const onAdd = () => {
     if (!title.trim()) return;
@@ -21,13 +29,16 @@ export default function AddTodoScreen({ navigation }: Props) {
   return (
     <View style={styles.container}>
       <TextInput
+        ref={inputRef}
         placeholder="What needs to be done?"
         placeholderTextColor="#888"
         value={title}
         onChangeText={setTitle}
         style={styles.input}
       />
-      <Pressable onPress={onAdd} style={styles.btn}><Text style={styles.btnText}>Add</Text></Pressable>
+      <Pressable onPress={onAdd} style={styles.btn}>
+        <Text style={styles.btnText}>Add</Text>
+      </Pressable>
     </View>
   );
 }
