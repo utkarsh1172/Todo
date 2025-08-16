@@ -1,8 +1,14 @@
-export async function fetchTodosAPI(limit = 50) {
-  const res = await fetch(`https://jsonplaceholder.typicode.com/todos?_limit=${limit}`);
-  const data: Array<{ id: number; title: string; completed: boolean }> = await res.json();
+import axios from 'axios';
+import type { Todo } from './types';
+
+export async function fetchTodosAPI(): Promise<Todo[]> {
+  const res = await axios.get<Array<{ id: number; title: string; completed: boolean }>>(
+    'https://jsonplaceholder.typicode.com/todos'
+  );
+
   const now = new Date().toISOString();
-  return data.map(d => ({
+
+  return res.data.map(d => ({
     id: d.id,
     title: d.title,
     completed: d.completed,

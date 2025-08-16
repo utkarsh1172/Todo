@@ -19,7 +19,7 @@ const initialState: TodosState = {
 
 // Fetch on app load (requirement #1). :contentReference[oaicite:3]{index=3}
 export const fetchTodos = createAsyncThunk('todos/fetch', async () => {
-  return await fetchTodosAPI(50);
+  return await fetchTodosAPI();
 });
 
 const slice = createSlice({

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { View, Text, FlatList, Pressable, StyleSheet, ActivityIndicator } from 'react-native';
 // import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { fetchTodos, toggleComplete, deleteTodo, editTodo, setFilter, setSort } from '../features/todos/todosSlice';
@@ -14,6 +14,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Main'>;
 export default function MainScreen({ navigation }: Props) {
   const dispatch = useAppDispatch();
   const status = useAppSelector(s => s.todos.status);
+  const [editingId, setEditingId] = useState<number | null>(null);
   const { total, completed } = useAppSelector(selectCounts);
   const data = useAppSelector(selectVisibleTodos);
   const filter = useAppSelector(s => s.todos.filter);
@@ -28,7 +29,7 @@ export default function MainScreen({ navigation }: Props) {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>TODOs</Text>
+        <Text style={styles.title}>TO DO List</Text>
         <Text style={styles.counts}>{completed}/{total} done</Text>
       </View>
 
@@ -53,7 +54,7 @@ export default function MainScreen({ navigation }: Props) {
         data={data}
         keyExtractor={i => String(i.id)}
         renderItem={({ item }) => (
-          <TodoItem item={item} onToggle={onToggle} onDelete={onDelete} onSaveTitle={onSaveTitle} />
+          <TodoItem item={item} onToggle={onToggle} onDelete={onDelete} onSaveTitle={onSaveTitle}   editingId={editingId} setEditingId={setEditingId} />
         )}
         contentContainerStyle={{ padding: 12 }}
         // Performance: fixed heights help; memoized row avoids re-renders

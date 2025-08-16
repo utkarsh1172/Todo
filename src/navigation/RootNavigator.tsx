@@ -18,3 +18,4 @@ export default function RootNavigator() {
     </Stack.Navigator>
   );
 }
+ 
